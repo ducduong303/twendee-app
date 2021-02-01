@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles/app.scss";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+
+import Login from "./pages/Login/Login";
+import Context from "./context/Context";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import Admin from "./pages/Admin/Admin";
+import Users from "./pages/User/Users";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+   
+    // console.log(data.role[0]);
+    
+    return (
+        <div className="App">
+            <Router>
+                <Switch>
+                    <Context>
+                        <Route exact path="/" component={Login} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/admin" component={Admin} />
+                        <Route path="/users" component={Users} />
+{/*                         
+                        <Route path="/admin" render={()=>{
+                            return localStorage.getItem("token") ? <Admin/> : <Redirect to="/"></Redirect>
+                        }}/>
+                        <Route path="/users" render={()=>{
+                            return localStorage.getItem("token") ? <Users/> : <Redirect to="/"></Redirect>
+                        }}/> */}
+                        <Route path="/forgot-password" component={ForgotPassword} />
+                    </Context>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;

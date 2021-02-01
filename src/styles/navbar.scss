@@ -1,0 +1,133 @@
+@import "./common.scss";
+@mixin  a {
+    color: $color;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.nav-bar{
+    height: 100%;
+    width: 255px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: -255px;
+    background-color: $background;
+    overflow-x: hidden;
+    transition: 0.5s;
+
+    
+    &.activeNavBar{
+        left: 0;
+        // width: 255px;
+    }
+    &__container{
+        padding: 0 1.5rem;
+    }
+    &__head{
+        height: 7rem;
+       display: flex;
+       align-items: center;
+        &-box{
+            @include flex();
+            width: 100%;
+        }
+        img{
+            height: 40px;
+            width: 40px;
+            margin-bottom: 1rem;
+        }
+        h3{     
+            a{
+                font-size: 25px !important;
+                // color: #e0e6ed !important;
+                color: #fff !important;
+                font-weight: 600;
+                margin-bottom: 0;
+            }
+           
+        }
+        .icon{
+            color: #e0e6ed ;
+            cursor: pointer;
+        }
+    }
+    &__center{
+        &-link{
+            color: $color;
+         
+            font-size: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            &:hover > svg {
+                color: $color-hover;
+            }
+            &:hover > .nav-bar__center-content {
+                color: $color-hover;
+            }
+           
+        }
+        .activeContent{
+            .nav-bar__center-content{
+                color: #fff;
+            }
+        }
+        
+        &-content{
+            
+            display: flex;
+            align-items: center;
+            padding: 5px 5px;
+            @include a();
+            &:hover{
+                color: $color-hover;
+            }
+            svg{
+                font-size: 2rem;
+            }
+            span{
+                margin-left: 1rem;
+                &.adminActive{
+                    margin-top: 0.5rem !important;
+                } 
+            }
+            &.contentActive{
+                color: $color;
+                width: 100%;
+                margin-bottom: 1.5rem;
+                background: rgba(59, 63, 92, 0.35);
+                border-radius: 4px;
+                border: 1px solid rgba(85, 85, 85, 0.21176470588235294);
+            }
+            &.activeColor{
+                color: $color-hover;
+                font-weight: bold;
+            }
+     
+        }
+        &-submenu{
+            display: block;
+            padding-left: 3.7rem;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            @include a();
+            display: flex;
+            align-items: center;
+            &:hover{
+                color: $color-hover;
+            }
+            span{
+            
+            }
+            svg{
+                font-size: 2rem;
+            }
+            &.activeColor{
+                color: $color-hover;
+                font-weight: bold;
+            }
+        }
+        
+    }
+}
