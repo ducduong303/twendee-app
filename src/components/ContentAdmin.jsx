@@ -11,16 +11,17 @@ import TimekeepingManagementMonth from './TimekeepingManagementMonth';
 import ResquestManagement from './ResquestManagement';
 import { ContextProvider } from '../context/Context';
 import Logout from './Logout';
+import AdminProfile from './AdminProfile';
 function ContentAdmin(props) {
-    const { isShowNavBar, handleToggleShowNavBar, isLogin} = useContext(ContextProvider)
+    const { isShowNavBar, handleToggleShowNavBar} = useContext(ContextProvider)
+  
     return (
         <div className={classNames("content", { activeContent: isShowNavBar })}>
             <div className="content__header">
                 <div className="content__header-container">
                     <AiOutlineBars size={25} className="icon" onClick={handleToggleShowNavBar} />
                     {
-                        isLogin ? <Logout /> : <>
-                            
+                        localStorage.getItem("token")  ? <Logout /> : <>
                             <h3>Chưa Đăng Nhập<img src={avt} className="content__header-img" alt="" /></h3>
                         </>
                     }
@@ -32,6 +33,7 @@ function ContentAdmin(props) {
                 <Route exact path="/admin/quanlychamcong/theongay" component={TimekeepingManagementDay} />
                 <Route exact path="/admin/quanlychamcong/theothang" component={TimekeepingManagementMonth} />
                 <Route exact path="/admin/quanlydontu" component={ResquestManagement} />
+                <Route exact path="/admin/capnhatthongtin" component={AdminProfile} />
             </div>
         </div>
     );

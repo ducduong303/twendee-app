@@ -4,7 +4,7 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import CallApi from '../utils/CallApi';
 
 function PaginationEmployee(props) {
-    const { handlePageChange, filters } = useContext(ContextProvider);
+    const { handlePageChange, filters} = useContext(ContextProvider);
     const [total, setTotal] = useState([])
     const { page } = filters;
 
@@ -13,7 +13,7 @@ function PaginationEmployee(props) {
             .then(res => {
                 setTotal([...res.data])
             })
-    }, [])
+    },[])
     const totalPages = Math.ceil(total.length / 5);
     const dot = [...Array(totalPages).keys()].map(num => num);
 

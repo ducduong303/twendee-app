@@ -10,7 +10,7 @@ import PaginationEmployee from './PaginationEmployee';
 
 
 function EmployeeManager(props) {
-    const { handleToggleShowModal, employee, handleDeleteEmployee, handleEditEmployee, handleSearch } = useContext(ContextProvider);
+    const { handleToggleShowModal, employee, handleDeleteEmployee, handleEditEmployee, handleSearch,   isShowModal} = useContext(ContextProvider);
 
     const [search, setSearch] = useState("")
 
@@ -70,7 +70,10 @@ function EmployeeManager(props) {
     return (
         <>
             <div className="content__employee">
-                <EmployeeModal />
+                {
+                       isShowModal &&  <EmployeeModal />
+                }
+             
                 <HeadingTitleContent>Quản lý Nhân Viên </HeadingTitleContent>
                 <div className="content__employee-head">
                     <div className=" content__employee-box content__employee-container">

@@ -3,78 +3,107 @@ import React, { useState, useContext } from 'react';
 import HeadingTitleContent from './HeadingTitleContent';
 import { ContextProvider } from '../context/Context';
 
-function UserRequest(props) {
-    const { handleUsersRequest } = useContext(ContextProvider);
 
-    const [request, setRequest] = useState("1")
+function UserRequest(props) {
+    const { handleUsersRequest, user } = useContext(ContextProvider);
+
+    const [requestUser, setRequestUser] = useState("1")
     const handleOnchageRequest = (e) => {
-        setRequest(e.target.value)
+        setRequestUser(e.target.value)
     }
+
+
     const [inputs, setInputs] = useState({
-        email: "",
+        email: user && user.email,
         startDate: "",
         endDate: "",
         reason: "",
-
-
+        timeLate: "",
+        timeEarly: ""
     })
 
-    const handleOnchage = (e) => {
-        setInputs({
-            ...inputs,
-            [e.target.name]: e.target.value
-        })
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
+        console.log("inputs", inputs);
+
+
+        handleUsersRequest(inputs, requestUser)
+        setInputs({
+            email: "",
+            startDate: "",
+            endDate: "",
+            reason: "",
+            timeLate: "",
+            timeEarly: ""
+        })
     }
 
-    const handleSubmit = (e) => {
-        handleUsersRequest(inputs, request)
+    const hanleChange = (e) => {
+
+        setInputs({
+            ...inputs,
+            email: user && user.email,
+            [e.target.name]: e.target.value,
+        })
     }
     const handleRenderRequest = () => {
         let result;
-        switch (request) {
+        switch (requestUser) {
             case "1":
                 result = (
                     <>
                         <div className="content__request-item content__request-dayoff">
                             <div className="content__request-box">
-                                <h3 className="content__request-dayoffTitle">
+                                <h1 className="content__request-reasonTitle">
                                     Đơn Xin Nghỉ
-                                </h3>
-                                <div className="content__request-itemContent">
-                                    <div className="content__request-itemForm">
-                                        <label htmlFor="">Email </label>
-                                        <input type="email" name="email"
-                                            onChange={handleOnchage}
-                                            value={inputs.email}
-                                            placeholder="Email" />
-                                    </div>
-                                    <div className="content__request-group">
+                                 </h1>
+                                <form onSubmit={handleSubmit} className="content__request-itemContent">
+                                    <div className="content__request-itemContent-box col-lg-10">
                                         <div className="content__request-itemForm">
-                                            <label htmlFor="">Ngày bắt đầu </label>
-                                            <input type="date"
-                                                name="startDate"
-                                                value={inputs.startDate}
-                                                onChange={handleOnchage} />
+                                            <label htmlFor="">Email </label>
+                                            <input type="email"
+                                                name="email"
+                                                disabled={user && user.email}
+                                                defaultValue={user && user.email}
+                                                placeholder="Email"
+                                            />
+
+                                        </div>
+                                        <div className="content__request-group">
+                                            <div className="content__request-itemForm  col-lg-5">
+                                                <label htmlFor="">Ngày bắt đầu </label>
+                                                <input type="date"
+                                                    name="startDate"
+                                                    value={inputs.startDate}
+                                                    onChange={hanleChange}
+
+                                                />
+
+                                            </div>
+                                            <div className="content__request-itemForm col-lg-5">
+                                                <label htmlFor="">Ngày kết thúc </label>
+                                                <input type="date"
+                                                    name="endDate"
+                                                    value={inputs.endDate}
+                                                    onChange={hanleChange}
+                                                />
+
+                                            </div>
                                         </div>
                                         <div className="content__request-itemForm">
-                                            <label htmlFor="">Ngày kết thúc </label>
-                                            <input
-                                                type="date"
-                                                name="endDate"
-                                                value={inputs.endDate}
-                                                onChange={handleOnchage} />
+                                            <label htmlFor="">Lí do </label>
+                                            <textarea rows="5"
+                                                name="reason"
+                                                cols="50"
+                                                value={inputs.reason}
+                                                onChange={hanleChange}
+                                            />
+
                                         </div>
+                                        <button type="submit">Gửi</button>
                                     </div>
-                                    <div className="content__request-itemForm">
-                                        <label htmlFor="">Lí do </label>
-                                        <textarea rows="5"
-                                            value={inputs.reason}
-                                            cols="50"
-                                            name="reason" onChange={handleOnchage} > </textarea>
-                                    </div>
-                                </div>
-                                <button onClick={handleSubmit}>Click</button>
+                                </form>
                             </div>
                         </div>
                     </>
@@ -84,18 +113,33 @@ function UserRequest(props) {
                 result = (
                     <div className="content__request-item content__request-dayoff">
                         <div className="content__request-box">
-                            <h3 className="content__request-dayoffTitle">
+                            <h3 className="content__request-reasonTitle">
                                 Quên Điểm Danh
                         </h3>
                             <div className="content__request-itemContent">
-                                <div className="content__request-itemForm">
-                                    <label htmlFor="">Email </label>
-                                    <input type="email" placeholder="Email" />
-                                </div>
-                                <div className="content__request-itemForm">
-                                    <label htmlFor="">Ngày </label>
-                                    <input type="date" />
-                                </div>
+                                <form onSubmit={handleSubmit} className="content__request-itemContent-box col-lg-10">
+                                    <div className="content__request-itemForm">
+                                        <label htmlFor="">Email </label>
+                                        <input type="email"
+                                            name="email"
+                                            disabled={user && user.email}
+                                            defaultValue={user && user.email}
+                                            placeholder="Email" />
+
+                                    </div>
+
+                                    <div className="content__request-itemForm">
+                                        <label htmlFor="">Ngày</label>
+                                        <input type="date"
+                                            name="startDate"
+                                            value={inputs.startDate}
+                                            onChange={hanleChange}
+                                        />
+
+                                    </div>
+
+                                    <button type="submit">Gửi</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -105,32 +149,60 @@ function UserRequest(props) {
                 result = (
                     <div className="content__request-item content__request-dayoff">
                         <div className="content__request-box">
-                            <h3 className="content__request-dayoffTitle">
-                                Đi muộn về sớm
+                            <h3 className="content__request-reasonTitle">
+                                Đi sớm về muộn
                         </h3>
                             <div className="content__request-itemContent">
-                                <div className="content__request-itemForm">
-                                    <label htmlFor="">Email </label>
-                                    <input type="email" placeholder="Email" />
-                                </div>
-                                <div className="content__request-group">
+                                <form onSubmit={handleSubmit} className="content__request-itemContent-box col-lg-10">
                                     <div className="content__request-itemForm">
-                                        <label htmlFor="">Ngày xin</label>
-                                        <input type="date" />
+                                        <label htmlFor="">Email </label>
+                                        <input type="email"
+                                            name="email"
+                                            // value={inputs.email}
+                                            // onChange={hanleChange}
+                                            disabled={user && user.email}
+                                            defaultValue={user && user.email}
+                                            placeholder="Email" />
+
+                                    </div>
+                                    <div className="content__request-itemForm ">
+                                        <label htmlFor="">Ngày xin  </label>
+                                        <input type="date"
+                                            name="startDate"
+                                            value={inputs.startDate}
+                                            onChange={hanleChange}
+                                        />
+
+                                    </div>
+                                    <div className="content__request-group">
+                                        <div className="content__request-itemForm  col-lg-5">
+                                            <label htmlFor="">Thời gian đi muộn (phút)</label>
+                                            <input type="number"
+                                                name="timeLate"
+                                                value={inputs.timeLate}
+                                                onChange={hanleChange}
+                                            />
+                                        </div>
+                                        <div className="content__request-itemForm col-lg-5">
+                                            <label htmlFor="">Thời gian về sớm (phút)</label>
+                                            <input type="number"
+                                                name="timeEarly"
+                                                value={inputs.timeEarly}
+                                                onChange={hanleChange}
+                                            />
+
+                                        </div>
                                     </div>
                                     <div className="content__request-itemForm">
-                                        <label htmlFor="">Thời gian đi muộn (phút) </label>
-                                        <input type="number" />
+                                        <label htmlFor="">Lí do </label>
+                                        <textarea rows="5"
+                                            name="reason"
+                                            value={inputs.reason}
+                                            onChange={hanleChange}
+                                            cols="50" />
                                     </div>
-                                    <div className="content__request-itemForm">
-                                        <label htmlFor="">Thời gian về sớm (phút)</label>
-                                        <input type="number" />
-                                    </div>
-                                </div>
-                                <div className="content__request-itemForm">
-                                    <label htmlFor="">Lí do </label>
-                                    <textarea rows="5" cols="50"> </textarea>
-                                </div>
+                                    <button type="submit">Gửi</button>
+                                </form>
 
                             </div>
                         </div>
@@ -141,30 +213,55 @@ function UserRequest(props) {
                 result = (
                     <div className="content__request-item content__request-dayoff">
                         <div className="content__request-box">
-                            <h3 className="content__request-dayoffTitle">
-                                On Site
-                    </h3>
+                            <h1 className="content__request-reasonTitle">
+                                On Side
+                         </h1>
                             <div className="content__request-itemContent">
-                                <div className="content__request-itemForm">
-                                    <label htmlFor="">Email </label>
-                                    <input type="email" placeholder="Email" />
-                                </div>
-                                <div className="content__request-group">
+                                <form onSubmit={handleSubmit} className="content__request-itemContent-box col-lg-10">
                                     <div className="content__request-itemForm">
-                                        <label htmlFor="">Ngày bắt đầu </label>
-                                        <input type="date" />
+                                        <label htmlFor="">Email </label>
+                                        <input type="email"
+                                            name="email"
+
+                                            disabled={user && user.email}
+                                            defaultValue={user && user.email}
+                                        ></input>
+
+                                    </div>
+                                    <div className="content__request-group">
+                                        <div className="content__request-itemForm  col-lg-5">
+                                            <label htmlFor="">Ngày bắt đầu </label>
+                                            <input type="date"
+                                                name="startDate"
+                                                value={inputs.startDate}
+                                                onChange={hanleChange}
+                                            />
+
+                                        </div>
+                                        <div className="content__request-itemForm col-lg-5">
+                                            <label htmlFor="">Ngày kết thúc </label>
+                                            <input type="date"
+                                                name="endDate"
+                                                value={inputs.endDate}
+                                                onChange={hanleChange}
+                                            />
+
+                                        </div>
                                     </div>
                                     <div className="content__request-itemForm">
-                                        <label htmlFor="">Ngày kết thúc </label>
-                                        <input type="date" />
+                                        <label htmlFor="">Lí do </label>
+                                        <textarea rows="5"
+                                            name="reason"
+                                            value={inputs.reason}
+                                            onChange={hanleChange}
+                                            cols="50" />
+
                                     </div>
-                                </div>
-                                <div className="content__request-itemForm">
-                                    <label htmlFor="">Lí do </label>
-                                    <textarea rows="5" cols="50"> </textarea>
-                                </div>
+                                    <button type="submit">Gửi</button>
+                                </form>
 
                             </div>
+
                         </div>
                     </div>
                 )
@@ -181,11 +278,12 @@ function UserRequest(props) {
             <HeadingTitleContent>Đơn Từ</HeadingTitleContent>
             <div className="content__request">
                 <div className="content__request-container">
-                    <div className="content__request-content col-lg-8">
+                    <div className="content__request-content col-lg-9">
                         {handleRenderRequest()}
                     </div>
+
                     <div className="content__request-title col-lg-2">
-                        <select value={request} onChange={handleOnchageRequest}>
+                        <select value={requestUser} onChange={handleOnchageRequest}>
                             <option value={1}>Xin nghỉ </option>
                             <option value={2}>Điểm danh hộ</option>
                             <option value={3}>Đi muộn về sớm</option>

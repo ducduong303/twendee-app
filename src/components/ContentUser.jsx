@@ -7,13 +7,15 @@ import { AiOutlineBars } from 'react-icons/ai';
 import UserTimekeeping from "./UserTimekeeping";
 import TimekeepingHistory from "./TimekeepingHistory";
 import UserRequest from "./UserRequest";
-import UpdateProfie from "./UpdateProfie";
+import UserProfile from './UserProfile';
 
 import { Route } from 'react-router-dom';
 import { ContextProvider } from '../context/Context';
 import Logout from './Logout';
+
 function ContentUser(props) {
-    const { isShowNavBar,handleToggleShowNavBar,isLogin } = useContext(ContextProvider)
+    const { isShowNavBar, handleToggleShowNavBar} = useContext(ContextProvider)
+
     return (
 
         <div className={classNames("content", { activeContent: isShowNavBar })}>
@@ -21,7 +23,7 @@ function ContentUser(props) {
                 <div className="content__header-container">
                     <AiOutlineBars size={25} className="icon" onClick={handleToggleShowNavBar} />
                     {
-                        isLogin ? <Logout /> : <>
+                        localStorage.getItem("token") ? <Logout /> : <>
                             <h3>Chưa Đăng Nhập<img src={avt} className="content__header-img" alt="" /></h3>
                         </>
                     }
@@ -32,7 +34,7 @@ function ContentUser(props) {
                     <Route exact path="/users/diemdanh" component={UserTimekeeping} />
                     <Route path="/users/lichsudiemdanh" component={TimekeepingHistory} />
                     <Route path="/users/dontu" component={UserRequest} />
-                    <Route path="/users/capnhatthongtin" component={UpdateProfie} />
+                    <Route path="/users/capnhatthongtin" component={UserProfile} />
                 </div>
             </div>
         </div>

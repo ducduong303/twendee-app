@@ -47,6 +47,12 @@ export const SlideBarDataAdmin = [
         path:"/admin/quanlydontu",
         icon: <FiMail/>
     },
+    {
+        id:uuidv4(),
+        title:"Cập nhật thông tin",
+        path:"/admin/capnhatthongtin",
+        icon:<BiCalendarEdit/>
+    },
 ]
     
 export const SlideBarDataUser = [

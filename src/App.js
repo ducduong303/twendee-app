@@ -10,9 +10,6 @@ import Users from "./pages/User/Users";
 
 function App() {
 
-   
-    // console.log(data.role[0]);
-    
     return (
         <div className="App">
             <Router>
@@ -20,15 +17,15 @@ function App() {
                     <Context>
                         <Route exact path="/" component={Login} />
                         <Route path="/login" component={Login} />
-                        <Route path="/admin" component={Admin} />
-                        <Route path="/users" component={Users} />
-{/*                         
-                        <Route path="/admin" render={()=>{
-                            return localStorage.getItem("token") ? <Admin/> : <Redirect to="/"></Redirect>
-                        }}/>
-                        <Route path="/users" render={()=>{
-                            return localStorage.getItem("token") ? <Users/> : <Redirect to="/"></Redirect>
-                        }}/> */}
+                        {/* <Route path="/admin" component={Admin} />
+                        <Route path="/users" component={Users} /> */}
+                     
+                        <Route path="/admin" render={() => {
+                            return localStorage.getItem("token") ? <Admin /> : <Redirect to="/"></Redirect>
+                        }} />
+                        <Route path="/users" render={() => {
+                            return localStorage.getItem("token") ? <Users /> : <Redirect to="/"></Redirect>
+                        }} />
                         <Route path="/forgot-password" component={ForgotPassword} />
                     </Context>
                 </Switch>
