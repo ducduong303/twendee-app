@@ -67,6 +67,7 @@ function Context(props) {
         const param = queryString.stringify(filters);
         CallApi(`admin/staffs?${param}`, "GET", null)
             .then(res => {
+                console.log("resdata",res);
                 setEmployee([...res.data]);
             })
     }, [filters])
@@ -76,8 +77,6 @@ function Context(props) {
         CallApi("admin/requests", "GET", null)
             .then(res => {
                 setRequestsUser([...res.data])
-                console.log("res", res);
-
             })
     }, [])
 
@@ -125,7 +124,7 @@ function Context(props) {
             vip: data.vip
         }
         if (data.id === "") {
-            // console.log("adđ",newData);
+            console.log("adđ",newData);
             CallApi("admin/staffs", "POST", {
                 ...newData
             })

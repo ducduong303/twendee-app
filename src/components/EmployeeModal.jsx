@@ -70,9 +70,7 @@ function EmployeeModal(props) {
 
     useEffect(() => {
         console.log("editTingEmployee",editTingEmployee);
-        
         if (editTingEmployee) {
-            console.log("đang edit");
             const time = () => {
                 let time = editTingEmployee.birthday;
                 if (time === editTingEmployee.birthday) {
@@ -94,7 +92,6 @@ function EmployeeModal(props) {
                 vip: editTingEmployee.vip
             })
         } else {
-            console.log("đang add");
             setInputs({
                 id: "",
                 email: "",
@@ -111,7 +108,7 @@ function EmployeeModal(props) {
             clearInput()
         }
 
-    }, [])
+    }, [editTingEmployee])
     const clearInput = () => {
         setImage(null)
         setProgress(0);
