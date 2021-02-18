@@ -74,20 +74,114 @@ $color-success:#2ecc71;
     
 }
 @media (min-width:768px) and (max-width:992px){
-    
-}
-@media (max-width:767px){
     .nav-bar{
-        width: 0 ;
+        width: 0;
         position: fixed;
         &.activeNavBar{
             z-index: 10;
-           
+            width: 255px !important;
         }
     }
     .content{
         &.activeContent{
             margin-left: 0 !important;
+        }
+        .content__employee{
+            .content__employee-table{
+                display: block;
+                width: 100%;
+                overflow-x: auto;  
+            }
+        }
+        .thead-isShow{
+            display: none;
+            text-align: center;
+        }
+        .content__employee-tbody{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .content__employee-thead{
+                max-width: 49%;
+                flex: 0 0 49%;
+                text-align: center;
+                flex-direction: column;
+                .content__employee-theadItem{
+                    width: 100%;
+                    padding-bottom: 1rem;
+                    h2{
+                        img{
+                            width: 9rem;
+                            height: 9rem;
+                        }
+                        span{
+                            font-size: 2rem;
+                            margin-top: 1rem;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        .content__employee-add{
+            justify-content: flex-start;
+            margin: 1rem 0;
+        }
+    }
+}
+@media (max-width:767px){
+    .nav-bar{
+        width: 0;
+        position: fixed;
+        &.activeNavBar{
+            z-index: 10;
+            width: 255px !important;
+        }
+    }
+    .content{
+        &.activeContent{
+            margin-left: 0 !important;
+        }
+        .content__employee{
+            .content__employee-table{
+                display: block;
+                width: 100%;
+                overflow-x: auto;  
+            }
+        }
+        .thead-isShow{
+            display: none;
+            text-align: center;
+        }
+        .content__employee-tbody{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .content__employee-thead{
+                max-width: 49%;
+                flex: 0 0 49%;
+                text-align: center;
+                flex-direction: column;
+                .content__employee-theadItem{
+                    width: 100%;
+                    padding-bottom: 1rem;
+                    h2{
+                        img{
+                            width: 9rem;
+                            height: 9rem;
+                        }
+                        span{
+                            font-size: 2rem;
+                            margin-top: 1rem;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        .content__employee-add{
+            justify-content: flex-start;
+            margin: 1rem 0;
         }
     }
 }

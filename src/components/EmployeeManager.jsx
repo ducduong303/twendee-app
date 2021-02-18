@@ -10,7 +10,7 @@ import PaginationEmployee from './PaginationEmployee';
 
 
 function EmployeeManager(props) {
-    const { handleToggleShowModal, employee, handleDeleteEmployee, handleEditEmployee, handleSearch,   isShowModal} = useContext(ContextProvider);
+    const { handleToggleShowModal, employee, handleDeleteEmployee, handleEditEmployee, handleSearch, isShowModal } = useContext(ContextProvider);
 
     const [search, setSearch] = useState("")
 
@@ -35,12 +35,12 @@ function EmployeeManager(props) {
         if (employee.length > 0) {
             result = employee.map((item, index) => {
                 return (
-                    <div key={index} className="content__employee-thead active-thead">
+                    <div key={index} className="content__employee-thead active-thead ">
                         <div className="content__employee-theadItem active-theadItem col-item-1  ">
                             <h3>{index + 1}</h3>
                         </div>
                         <div className="content__employee-theadItem active-theadItem col-item-2 ">
-                            <h2><img src={item.avatar} alt="" /> {item.name} </h2>
+                            <h2><img src={item.avatar} alt="" /><span> {item.name}</span> </h2>
                         </div>
                         <div className="content__employee-theadItem active-theadItem col-item-3 ">
                             <h3>{item.phone}</h3>
@@ -71,9 +71,9 @@ function EmployeeManager(props) {
         <>
             <div className="content__employee">
                 {
-                       isShowModal &&  <EmployeeModal />
+                    isShowModal && <EmployeeModal />
                 }
-             
+
                 <HeadingTitleContent>Quản lý Nhân Viên </HeadingTitleContent>
                 <div className="content__employee-head">
                     <div className=" content__employee-box content__employee-container">
@@ -81,7 +81,7 @@ function EmployeeManager(props) {
                             <input value={search} onChange={handleChangeSearch} type="text" placeholder="Seacrh employee..." />
                             <FiSearch size={20} className="search-icon" />
                         </form>
-                        <div className="content__employee-add col-lg-9 col-md-6">
+                        <div className="content__employee-add col-lg-8 col-md-6">
                             <button onClick={handleToggleShowModal}>
                                 <GoPlusSmall size={25} />
                                 <span>Thêm Mới</span>
@@ -91,7 +91,7 @@ function EmployeeManager(props) {
                 </div>
                 <div className="content__employee-table">
                     <div className="content__employee-container">
-                        <div className="content__employee-thead">
+                        <div className="content__employee-thead thead-isShow">
                             <div className="content__employee-theadItem col-item-1 ">
                                 <h3>STT</h3>
                             </div>

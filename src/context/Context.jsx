@@ -12,8 +12,6 @@ function Context(props) {
     const [requestsUser, setRequestsUser] = useState([])
     const token = localStorage.getItem("token")
 
-
-
     const [isLogin, setIsLogin] = useState(false);
 
     const [editTingEmployee, setEditTingEmployee] = useState(null)
@@ -36,8 +34,8 @@ function Context(props) {
                     setUser(res.data)
                 })
         }
-        return () =>{
-           
+        return () => {
+
         }
     }, [token, employee])
 
@@ -67,7 +65,7 @@ function Context(props) {
         const param = queryString.stringify(filters);
         CallApi(`admin/staffs?${param}`, "GET", null)
             .then(res => {
-                console.log("resdata",res);
+                // console.log("resdata", res);
                 setEmployee([...res.data]);
             })
     }, [filters])
@@ -78,7 +76,7 @@ function Context(props) {
             .then(res => {
                 setRequestsUser([...res.data])
             })
-    }, [])
+    },[])
 
     // Xử lý sự kiện active và show Submenu
     const [subMenu, setSubMenu] = useState(false);
@@ -104,7 +102,6 @@ function Context(props) {
     const handleCloseForm = () => {
         setIsShowModal(false)
         setEditTingEmployee(null)
-
     }
 
     // Xử lý sự kiện addEmployee và UpdateEmployee
@@ -124,7 +121,7 @@ function Context(props) {
             vip: data.vip
         }
         if (data.id === "") {
-            console.log("adđ",newData);
+            console.log("adđ", newData);
             CallApi("admin/staffs", "POST", {
                 ...newData
             })
