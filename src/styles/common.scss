@@ -183,6 +183,17 @@ $color-success:#2ecc71;
             justify-content: flex-start;
             margin: 1rem 0;
         }
+
+        .content__profile{
+            .content__profile-item{
+                .content__profile-itemLeft{
+                    margin-bottom: 2rem;
+                    padding-bottom: 1.5rem;
+                    border-right:none !important;
+                    border-bottom: 1px dashed $color;
+                }
+            }
+        }
     }
 }
 @media screen and (max-width: 479px){

@@ -69,7 +69,7 @@ function EmployeeModal(props) {
     }, [image])
 
     useEffect(() => {
-        console.log("editTingEmployee", editTingEmployee);
+        // console.log("editTingEmployee", editTingEmployee);
         if (editTingEmployee) {
             const time = () => {
                 let time = editTingEmployee.birthday;
@@ -254,7 +254,7 @@ function EmployeeModal(props) {
                             <div className="content__employee-formControl formControl">
                                 <label htmlFor="address">Địa chỉ</label>
                                 <input type="text" name="address" id="address" defaultValue={inputs.address} ref={register} placeholder="Địa chỉ" />
-                                <p>{errors.address && errors.address.type === "required" && "Bạn chưa nhập địa chỉ"}</p>
+                                {errors.address && errors.address.type === "required" ? <p> Bạn chưa nhập địa chỉ</p> : null}
                             </div>
                             <div className="content__employee-formControl formControl">
                                 <label htmlFor="position">Chức vụ </label>

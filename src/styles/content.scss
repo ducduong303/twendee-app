@@ -536,6 +536,9 @@
         }
     }
     &__profile{
+        .inputFile{
+            display: none;
+        }
         &-container{
             padding: 1.5rem;
         }
@@ -546,6 +549,7 @@
             border: 1px solid #ededed;
             padding: 2rem 0;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             background-color: #fff;
         }
@@ -563,11 +567,52 @@
             border-radius: 1rem;  
             width: 250px;
             height: 300px;
+            position: relative;
+            overflow: hidden;
+         
+            &:hover .iconfile{
+                opacity: 1;
+                cursor: pointer;
+            }
+            &:hover .iconfile svg{
+                opacity: 1;
+                transform: scale(1);
+            }
+            .iconfile{
+                opacity: 0;
+                color: #fff;
+                background-color: rgba(0, 0, 0, 0.5);
+                position: absolute;
+                width: 100%;
+                top: 0;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                svg{
+                    transition: 0.4s;
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
         }
         &-itemLeft{
             border-right: 1px dashed $color;
             display: flex;
             justify-content: center;
+            flex-direction: column;
+            
+            &-box{
+                margin-bottom: 1rem;
+                display: flex;
+                justify-content: center;
+            }
+            &.active{
+                align-items: center;
+            }
+            label{
+                text-align: center;
+            }
         }
         // &-itemCenter{
             
@@ -588,6 +633,24 @@
                 font-weight: 600;
                 color: $color;
                 font-size: 1.4rem;;
+            }
+           
+        }
+        &-personalInfoText{
+            h4{
+                padding-bottom: 1rem;
+            }
+            p{
+                margin: 0;
+                color: $color-error;
+            }
+            input{
+                padding:3px 10px;
+                width: 100%;
+                border: none;
+                outline: none;
+                font-size: 1.6rem;
+                border-bottom: 1px solid #3b3f5c;
             }
         }
 

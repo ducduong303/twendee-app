@@ -10,10 +10,9 @@ function UserTimekeeping(props) {
             <HeadingTitleContent>Điểm danh</HeadingTitleContent>
             <div className="content__timekeeping">
                 <div className="content__timekeeping-container">
-              
                     <div className="content__timekeeping-btn">
                         <button onClick={() =>handleTimeKeeping(user.email,1)}>Check in</button>
-                        <button onClick={() =>handleTimeKeeping(user.eamil,2)}>Check out</button>
+                        <button onClick={() =>handleTimeKeeping(user.email,2)}>Check out</button>
                     </div>
 
                 </div>

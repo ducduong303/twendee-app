@@ -31,13 +31,15 @@ function Context(props) {
                 token: configToken
             })
                 .then(res => {
+                    console.log("resUser",res);
+                    
                     setUser(res.data)
                 })
         }
         return () => {
 
         }
-    }, [token, employee])
+    }, [token,employee])
 
     // Xử lý phân trang
     const [filters, setFilters] = useState({
@@ -76,7 +78,7 @@ function Context(props) {
             .then(res => {
                 setRequestsUser([...res.data])
             })
-    },[])
+    }, [])
 
     // Xử lý sự kiện active và show Submenu
     const [subMenu, setSubMenu] = useState(false);
@@ -121,7 +123,7 @@ function Context(props) {
             vip: data.vip
         }
         if (data.id === "") {
-            console.log("adđ", newData);
+            // console.log("adđ", newData);
             CallApi("admin/staffs", "POST", {
                 ...newData
             })
@@ -138,7 +140,7 @@ function Context(props) {
             handleCloseForm();
         }
         else {
-            console.log("update", newData);
+            // console.log("update", newData);
             CallApi(`admin/staffs/${data.id}`, "POST", {
                 ...newData
             })
@@ -176,30 +178,26 @@ function Context(props) {
 
     // Xử lý sự kiện Điểm danh
     const handleTimeKeeping = (email, type) => {
-        console.log("type", email);
+        console.log("type", email, type);
         switch (type) {
             case 1:
                 CallApi("checkin", "POST", {
                     email: email
                 }).then(res => {
-                    console.log("res", res);
-
+                    alert(res.data.mess)
                 })
                 break;
             case 2:
                 CallApi("checkout", "POST", {
                     email: email
                 }).then(res => {
-                    console.log("res", res);
-
+                    alert(res.data.mess)
                 })
                 break;
             default:
                 return;
         }
-
     }
-
 
     // Xử lý sự kiện login
     const handleLoginUser = (data) => {
@@ -227,6 +225,51 @@ function Context(props) {
         }
     }
 
+    // Xử lý sự kiện Update profile
+    const handleUpdateProfile = (data,id) =>{
+        const day = Date.parse(data.birthday);
+        const newProfile = {
+            pass: data.pass,
+            name: data.name,
+            phone: data.phone,
+            birthday: day,
+            email:data.email,
+            cardId: data.cardId,
+            avatar: data.avatar,
+            address: data.address,
+            gender: data.gender,
+        }
+        console.log("newprofile",newProfile);
+        CallApi(`update/${id}`,"POST",{
+            ...newProfile
+        }).then(res =>{
+            console.log("resUpdate",res);
+            var index = UseFindIndex(employee, id);
+            if (index !== -1) {
+                employee[index] = res.data
+                setEmployee([...employee])
+            }
+            
+        })
+    }
+    // Xử lý sự kiện quên mật khẩu
+    const handleForgotPassWord = (data) => {
+        const newData = {
+            email: data.email
+        }
+        CallApi("forgotPassword", "POST", {
+            ...newData
+        })
+            .then(res => {    
+                if(res.data.mess === "successful"){
+                    alert("Vui lòng kiểm tra email của bạn để nhận mật khẩu mới")
+                    history.push("/")
+                }
+                else{
+                    alert("Email và password không tồn tại ")
+                }
+            })
+    }
 
     // Xử lý sự kiện đơn từ
     const handleUsersRequest = (data, request) => {
@@ -316,6 +359,7 @@ function Context(props) {
         localStorage.clear()
         history.push("/")
         setIsLogin(false)
+        setSeleced(null)
     }
     return (
         <ContextProvider.Provider value={
@@ -323,6 +367,8 @@ function Context(props) {
                 user: user,
                 isLogin: isLogin,
                 handleLoginUser: handleLoginUser,
+                handleForgotPassWord: handleForgotPassWord,
+                handleUpdateProfile:handleUpdateProfile,
                 handleLogOut: handleLogOut,
                 requestsUser: requestsUser,
                 isShowNavBar: isShowNavBar,

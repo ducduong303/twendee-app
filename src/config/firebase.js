@@ -1,4 +1,7 @@
-import firebase from "firebase";
+// import firebase from "firebase";
+import firebase from "firebase/app";
+import 'firebase/storage';     
+
 firebase.initializeApp({
     apiKey: "AIzaSyB55zR9wP-fbfUZLiR_vhpDgDIc9hJ9qAU",
     authDomain: "uploadimage-191d8.firebaseapp.com",
