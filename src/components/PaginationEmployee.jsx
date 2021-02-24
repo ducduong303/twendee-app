@@ -1,32 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import { ContextProvider } from '../context/Context';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import CallApi from '../utils/CallApi';
-
+// import CallApi from '../utils/CallApi';
 function PaginationEmployee(props) {
-    const { handlePageChange, filters} = useContext(ContextProvider);
-    const [total, setTotal] = useState([])
+    const { handlePageChange, filters,totalEmployee} = useContext(ContextProvider);
+    // const [total, setTotal] = useState([])
     const { page } = filters;
+  
+    // useEffect(() => {
+    //     CallApi(`admin/staffs`, "GET", null)
+    //         .then(res => {
+    //             console.log("resPagina",res);
+                
+    //             setTotal([...res.data])
+    //         })
+    // },[employee])
 
-    useEffect(() => {
-        CallApi(`admin/staffs`, "GET", null)
-            .then(res => {
-                setTotal([...res.data])
-            })
-    },[])
-    const totalPages = Math.ceil(total.length / 5);
+
+    const totalPages = Math.ceil(totalEmployee.length / 5);  
     const dot = [...Array(totalPages).keys()].map(num => num);
-
 
     const onChangePage = (newPage) => {
         handlePageChange(newPage)
+       
     }
 
 
     return (
         <div className="content__pagination">
             {
-                total.length > 5 ? <>
+             totalEmployee.length > 5 ? <>
                     <button
                       
                         disabled={page <= 0}
@@ -35,7 +38,7 @@ function PaginationEmployee(props) {
                     </button>
 
                     {
-                         total.length > 5 && dot.map((item, index) => {
+                          totalEmployee.length > 5 && dot.map((item, index) => {
                             return (
                                 <button
                                     className={page === item ? "activeDot" : ""}

@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { storage } from '../config/firebase';
 import { Progress } from 'reactstrap';
 
+
 function UserProfile(props) {
 
     let schema = yup.object().shape({
@@ -26,7 +27,9 @@ function UserProfile(props) {
         resolver: yupResolver(schema)
     });
 
-    const { user, handleUpdateProfile } = useContext(ContextProvider)
+    const { user, handleUpdateProfile, handleCloseLogout } = useContext(ContextProvider)
+
+
 
 
     const [editTingProfile, setEditTingProfile] = useState(false)
@@ -34,30 +37,30 @@ function UserProfile(props) {
 
 
     const [previewImage, setPreviewImage] = useState(null);
-    // const [imageEdit, setImageEidt] = useState(null)
     const [progress, setProgress] = useState(0)
     const [image, setImage] = useState(null)
-
 
 
     const [status, setStatus] = useState(false)
     const openEditTing = () => {
         setEditTingProfile(true)
         setStatus(true)
+        handleCloseLogout()
     }
+   
 
     useEffect(() => {
         if (user) {
-
             setPreviewImage(user.avatar)
             setGenderEdit(user.gender)
         }
     }, [user])
 
+
+
     useEffect(() => {
         if (!image) {
             setPreviewImage(user && user.avatar)
-            // setPreviewImage(user && user.avatar)
             return
         }
         const objectUrl = URL.createObjectURL(image)
@@ -67,7 +70,6 @@ function UserProfile(props) {
     }, [image, user])
 
     const saveEditTing = () => {
-        // setEditTingProfile(false)
         setStatus(false)
     }
     const handleUpload = (data) => {
@@ -110,7 +112,7 @@ function UserProfile(props) {
                     ...data,
                     gender: data.gender === "true" ? true : false,
                     email: user && user.email,
-                    avatar: user.avatar
+                    avatar: user.avatar,
                 }, user.userId)
                 setEditTingProfile(false)
             }
@@ -125,11 +127,10 @@ function UserProfile(props) {
     const handleOnChangeGender = (e) => {
         setGenderEdit(e.target.value)
     }
-
-
     return (
         <>
             <HeadingTitleContent>Cập nhật thông tin</HeadingTitleContent>
+   
             <div className="content__profile">
                 <div className="content__profile-container">
                     <div className="content__profile-item">
@@ -218,10 +219,11 @@ function UserProfile(props) {
                                     <h3>Mật khẩu:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
-                                    <h4>  {editTingProfile ? <input type="password" name="pass" id="pass" ref={register} defaultValue={user && user.pass}></input> : user && <input type="password" disabled={!editTingProfile} defaultValue={user && user.pass}></input>}
+                                    <h4>  {editTingProfile ? <input type="password" name="pass" id="pass" defaultValue={user && user.pass} ref={register} ></input>
+                                        : user && <input type="password" style={{border:"none",background:"none",paddingLeft:"0"}} disabled={!editTingProfile}  name="pass" id="pass" defaultValue={user && user.pass}  ref={register} ></input>}
                                     </h4>
                                     {errors.pass && errors.pass.type === "required" ? <p>{errors.pass.type === "required" && "Bạn chưa nhập password"}</p> : null}
-                                {errors.pass && errors.pass.type === "min" ? <p>{errors.pass.type === "min" && "Mật khẩu ít nhất 6 ký tự"}</p> : null}
+                                    {errors.pass && errors.pass.type === "min" ? <p>{errors.pass.type === "min" && "Mật khẩu ít nhất 6 ký tự"}</p> : null}
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">

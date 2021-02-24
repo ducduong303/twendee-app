@@ -186,6 +186,12 @@
                 cursor: pointer;
             }
         }
+        &-selected{
+            padding: 12px 27px 12px 15px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            border-radius: 6px;
+        }
         &-add{
             padding: 0 !important;
             display: flex;
@@ -218,9 +224,38 @@
                 padding:20px 18px;
                 transition: 0.5s;
             }
+            &.requestAccept{
+                background-color: $color-success;
+                .content__employee-theadItem{
+                    h3{
+                        color: #fff !important;
+                    }
+                    svg{
+                        color: #fff 
+                    }
+                }
+            }
+            &.requestRefuse{
+                background-color:$color-error;
+                .content__employee-theadItem{
+                    h3{
+                        color: #fff !important;
+                    }
+                    svg{
+                        color: #fff 
+                    }
+                }
+            }
             &:hover{
               
             }
+        }
+        &-tbody{
+           .tbody-msg{
+               text-align: center;
+               padding: 5rem 0;
+           }
+           
         }
         &-theadItem{
             h3{
@@ -263,7 +298,6 @@
             &.active-theadItem{
                 h2{
                     margin: 0;
-                   
                     color: #3b3f5c;
                     font-size: 1.6rem;
                     font-weight: 600;
@@ -275,7 +309,7 @@
                     }
                 }
                 h3{
-                    font-size: 1.3rem;
+                
                     color: #3b3f5c;
                     font-weight: 600;
                 }
@@ -362,6 +396,10 @@
         }
         &-formControl{
             padding-bottom: 0.5rem;
+            img{
+                width: 100px;
+                height: 100px;
+            }
             &.formControl{
                 width: 48%;
             }

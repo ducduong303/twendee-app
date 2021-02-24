@@ -288,10 +288,10 @@ function EmployeeModal(props) {
 
                             {
                                 !imageEdit ? <>
-                                    {image ? <img src={previewImage} alt="" style={{ width: "60px", height: "60px" }}></img> : "Chưa có ảnh nào"}
+                                    {image ? <img src={previewImage} alt="" ></img> : "Chưa có ảnh nào"}
                                 </>
                                     :
-                                    <> <img src={imageEdit} alt="" style={{ width: "60px", height: "60px" }}></img></>
+                                    <> <img src={imageEdit} alt="" ></img></>
                             }
                             {
                                 image ? <Progress animated color="success" value={progress}>{progress}%</Progress>
