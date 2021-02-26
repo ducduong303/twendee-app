@@ -5,28 +5,25 @@ import UseFindIndex from "../hooks/UseFindIndex";
 import CallApi from '../utils/CallApi';
 export const ContextProvider = createContext();
 function Context(props) {
+    const token = localStorage.getItem("token")
     const history = useHistory('');
     const [user, setUser] = useState(null)
     const [employee, setEmployee] = useState([]);
     const [totalEmployee, setTotalEmployee] = useState([])
     const [totalRequest, settotalRequest] = useState([])
-
+    const [isLogin, setIsLogin] = useState(false);
     const [isLogout, setIsLogout] = useState(false)
+    const [editTingEmployee, setEditTingEmployee] = useState(null);
+    const [isShowNavBar, setIsShoNavBar] = useState(true);
+
     const handleOpenLogout = () => {
         setIsLogout(!isLogout)
     }
     const handleCloseLogout = () => {
         setIsLogout(false)
     }
-
-    const token = localStorage.getItem("token")
-
-    const [isLogin, setIsLogin] = useState(false);
-
-    const [editTingEmployee, setEditTingEmployee] = useState(null)
+    
     // Xử lý sự kiện ToogleNav
-    const [isShowNavBar, setIsShoNavBar] = useState(true);
-
     const handleToggleShowNavBar = () => {
         setIsShoNavBar(!isShowNavBar)
         setIsLogout(false)
@@ -524,12 +521,11 @@ function Context(props) {
                 isLogout: isLogout,
                 handleOpenLogout: handleOpenLogout,
                 handleCloseLogout: handleCloseLogout,
-
                 isShowModal: isShowModal,
                 handleToggleShowModal: handleToggleShowModal,
                 handleTimeKeeping: handleTimeKeeping,
 
-
+                // Xử lý nhân viên
                 employee: employee,
                 handleAddEmployee: handleAddEmployee,
                 handleDeleteEmployee: handleDeleteEmployee,
