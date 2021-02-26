@@ -154,7 +154,7 @@ function UserProfile(props) {
                         </div>
                         <form onSubmit={handleSubmit(handleUpload)} className="content__profile-itemCenter col-lg-8 col-md-6 col-sm-12">
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Họ tên:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -169,7 +169,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Vị trí:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -180,7 +180,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Số Chứng minh thư:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -192,7 +192,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Số điện thoại:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -204,7 +204,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Email:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -215,7 +215,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Mật khẩu:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -227,7 +227,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Ngày sinh:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -240,7 +240,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Địa chỉ:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">
@@ -252,7 +252,7 @@ function UserProfile(props) {
                                 </div>
                             </div>
                             <div className="content__profile-personalInfo">
-                                <div className="content__profile-personalInfoTitle col-4">
+                                <div className="content__profile-personalInfoTitle col-5">
                                     <h3>Giới tính:</h3>
                                 </div>
                                 <div className="content__profile-personalInfoText col-6">

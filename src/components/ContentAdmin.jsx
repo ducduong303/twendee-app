@@ -7,11 +7,12 @@ import { Route } from 'react-router-dom';
 // import Component
 import EmployeeManager from './EmployeeManager';
 import TimekeepingManagementDay from './TimekeepingManagementDay';
-import TimekeepingManagementMonth from './TimekeepingManagementMonth';
 import ResquestManagement from './ResquestManagement';
 import { ContextProvider } from '../context/Context';
 import Logout from './Logout';
 import UserProfile from './UserProfile';
+import RequestDetail from './RequestDetail';
+import TimekeepingManagementMonth from './TimekeepingManagementMonth';
 function ContentAdmin(props) {
     const { isShowNavBar, handleToggleShowNavBar} = useContext(ContextProvider)
   
@@ -34,6 +35,7 @@ function ContentAdmin(props) {
                 <Route exact path="/admin/quanlychamcong/theothang" component={TimekeepingManagementMonth} />
                 <Route exact path="/admin/quanlydontu" component={ResquestManagement} />
                 <Route exact path="/admin/capnhatthongtin" component={UserProfile} />
+                <Route exact path="/admin/quanlydontu/:id" component={RequestDetail} />
             </div>
         </div>
     );

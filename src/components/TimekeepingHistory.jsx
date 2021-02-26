@@ -65,7 +65,6 @@ function TimekeepingHistory(props) {
             })
         }
         return result;
-
     }
     return (
         <>

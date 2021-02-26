@@ -21,7 +21,7 @@ export const SlideBarDataAdmin = [
     {
         id:uuidv4(),
         title:"Quản lý chấm công",
-        path:"/admin/quanlychamcong/theongay",
+        path:"/admin/quanlychamcong",
         icon: <AiOutlineFieldTime/>,
         iconOpen: <BiChevronDown/> ,
         iconClose:<BiChevronRight/>,
@@ -34,11 +34,10 @@ export const SlideBarDataAdmin = [
             },
             {
                 id:uuidv4(),
-                title:"Theo tháng",
+                title:"Theo ngày",
                 path:"/admin/quanlychamcong/theothang",
                 icon:  <BiWifi0/>,
             },
-
         ]
     },
     {

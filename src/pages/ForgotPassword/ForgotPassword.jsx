@@ -5,7 +5,9 @@ import { ContextProvider } from '../../context/Context';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useHistory } from 'react-router-dom';
 function ForgotPassword(props) {
+    const history = useHistory('');
     const { handleForgotPassWord } = useContext(ContextProvider)
     let schema = yup.object().shape({
         email: yup.string().required().email(),
@@ -19,7 +21,9 @@ function ForgotPassword(props) {
         handleForgotPassWord(data)
         e.target.reset()
     }
-  
+  const handleBack =() =>{
+    history.push("/")
+  }
 
    
     return (
@@ -50,7 +54,9 @@ function ForgotPassword(props) {
                         </div>
                     
                     </form>
-                  
+                    <div className="login-form__center-gr">
+                            <button className="login-form__center-btn" onClick={handleBack}>Trở về</button>
+                    </div>
                 </div>
             </div>
         </div>

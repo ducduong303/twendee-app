@@ -7,5 +7,4 @@ function  UseFindIndexRequest(data,id) {
     })
     return index
 }
-
 export default UseFindIndexRequest;

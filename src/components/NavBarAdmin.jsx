@@ -49,18 +49,17 @@ function NavBarAdmin(props) {
                         }
                     </div>
                 )
-
             })
         }
         return result
     }
     return (
-        <div className={classNames("nav-bar", { activeNavBar: isShowNavBar })}>
+        <div className={classNames("nav-bar", { activeNavBar: isShowNavBar },{activeRes: !isShowNavBar})}>
             <div className="nav-bar__container">
                 <div className="nav-bar__head">
                     <div className="nav-bar__head-box">
                         <img src={logo} alt="" />
-                        <h3><Link to="/admin">TWENDEE</Link></h3>
+                        <h3 ><Link to="/admin">TWENDEE</Link></h3>
                         <BiLeftArrowAlt size={25} onClick={handleToggleShowNavBar} className="icon" />
                     </div>
                 </div>

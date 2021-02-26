@@ -413,11 +413,11 @@ function UserRequest(props) {
             <HeadingTitleContent>Đơn Từ</HeadingTitleContent>
             <div className="content__request">
                 <div className="content__request-container">
-                    <div className="content__request-content col-lg-9">
+                    <div className="content__request-content col-lg-9 col-md-12 col-sm-12">
                         {handleRenderRequest()}
                     </div>
 
-                    <div className="content__request-title col-lg-2">
+                    <div className="content__request-title col-lg-2 col-md-12 col-sm-12">
                         <select value={requestUser} onChange={handleOnchageRequest}>
                             <option value={1}>Xin nghỉ </option>
                             <option value={2}>Điểm danh hộ</option>

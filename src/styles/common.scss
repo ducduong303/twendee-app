@@ -69,17 +69,48 @@ $color-login:#3b3f5c;
 $color-error:#e74c3c;
 $color-success:#2ecc71;
 
-
-@media only screen and (max-width: 1199px) and (min-width: 993px) {
-    
+.accept{
+    color: $color-success !important;
 }
-@media (min-width:768px) and (max-width:992px){
+.refuse{
+    color: $color-error  !important;
+}
+.pending{
+    color:$border-focus  !important;
+
+}
+@media only screen and (max-width: 1199px) and (min-width: 993px) {
     .nav-bar{
-        width: 0;
         position: fixed;
         &.activeNavBar{
             z-index: 10;
+            width: 0px;
+            left: -255px;
+        }
+        &.activeRes{
             width: 255px !important;
+            z-index: 10;
+            left: 0;
+        }
+    }
+    .content{
+        &.activeContent{
+            margin-left: 0 !important;
+        }
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .nav-bar{
+        position: fixed;
+        &.activeNavBar{
+            z-index: 10;
+            width: 0px;
+            left: -255px;
+        }
+        &.activeRes{
+            width: 255px !important;
+            z-index: 10;
+            left: 0;
         }
     }
     .content{
@@ -131,11 +162,16 @@ $color-success:#2ecc71;
 }
 @media (max-width:767px){
     .nav-bar{
-        width: 0;
         position: fixed;
         &.activeNavBar{
             z-index: 10;
+            width: 0px;
+            left: -255px;
+        }
+        &.activeRes{
             width: 255px !important;
+            z-index: 10;
+            left: 0;
         }
     }
     .content{
@@ -153,13 +189,14 @@ $color-success:#2ecc71;
             display: none;
             text-align: center;
         }
+      
         .content__employee-tbody{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             .content__employee-thead{
-                max-width: 49%;
-                flex: 0 0 49%;
+                max-width: 100%;
+                flex: 0 0 100%;
                 text-align: center;
                 flex-direction: column;
                 .content__employee-theadItem{
@@ -193,9 +230,35 @@ $color-success:#2ecc71;
                     border-bottom: 1px dashed $color;
                 }
             }
+            .content__profile-btnEdit{
+                top: -1rem !important;
+                right: 1rem !important;
+            }
+        }
+        .content__employee-filterRequest{
+            .content__employee-filterRequest-rigth{
+                .content__employee-selected {
+                    &:nth-child(1){
+                        margin-bottom: 1rem;
+                        margin-right: 1rem;
+                    }
+                    &:nth-child(2){
+                        margin-left: 0;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+        }
+        .content__request-content{
+            order: 2;
+        }
+        .content__request-title {
+            order: 1;
+            padding: 0;
+            margin-bottom: 1rem;
         }
     }
 }
 @media screen and (max-width: 479px){
-
+ 
 }

@@ -3,20 +3,19 @@ import { useHistory } from 'react-router-dom';
 import queryString from "query-string";
 import UseFindIndex from "../hooks/UseFindIndex";
 import CallApi from '../utils/CallApi';
-
-// import moment from 'moment';
 export const ContextProvider = createContext();
 function Context(props) {
     const history = useHistory('');
     const [user, setUser] = useState(null)
     const [employee, setEmployee] = useState([]);
     const [totalEmployee, setTotalEmployee] = useState([])
+    const [totalRequest, settotalRequest] = useState([])
 
-    const [isLogout,setIsLogout] = useState(false)
-    const handleOpenLogout = () =>{
+    const [isLogout, setIsLogout] = useState(false)
+    const handleOpenLogout = () => {
         setIsLogout(!isLogout)
     }
-    const handleCloseLogout = () =>{
+    const handleCloseLogout = () => {
         setIsLogout(false)
     }
 
@@ -33,7 +32,107 @@ function Context(props) {
         setIsLogout(false)
     }
 
+    // Xử lý requesUser
+    const [requestUser, setRequestUser] = useState([])
+    const [filterRequest, setFilterRequest] = useState({
+        isAccepted: -1,
+        limit: 5,
+        page: 0,
+        type: 0,
+    })
+    const handleChangeFilterRequest = (filter) => {
+        setFilterRequest({
+            ...filterRequest,
+            isAccepted: filter.isAccepted,
+            type: filter.type
+        })
+    }
+    const handleChangePageRequest = (newPage) => {
+        setFilterRequest({
+            ...filterRequest,
+            page: newPage
+        })
+    }
 
+    // Get Requests
+    useEffect(() => {
+        const param = queryString.stringify(filterRequest)
+        CallApi(`admin/requests?${param}`, "GET", null)
+            .then(res => {
+                setRequestUser([...res.data])
+            })
+
+    }, [filterRequest])
+
+    // Xử lý action Request
+    const findIndexRequest = (data, id) => {
+        var index = -1;
+        data.forEach((item, i) => {
+            if (item.requestId === id) {
+                index = i
+            }
+        })
+        return index
+    }
+    const handleAcceptRequest = (id) => {
+        var index = findIndexRequest(requestUser, id);
+        var isAccept = requestUser[index].isAccept;
+        if (isAccept === null) {
+            CallApi(`admin/accept/${id}`, "GET", null)
+                .then(res => {
+                    if (res.data.mess) {
+                        alert("Accept thành công")
+                    }
+                })
+            requestUser[index] = {
+                ...requestUser[index],
+                isAccept: true
+            }
+            setRequestUser([...requestUser])
+        } else {
+            alert("đã phê duyệt")
+        }
+    }
+    const handleRefuseRequest = (id) => {
+        var index = findIndexRequest(requestUser, id);
+        var isAccept = requestUser[index].isAccept;
+        if (isAccept === null) {
+            CallApi(`admin/refuse/${id}`, "GET", null)
+                .then(res => {
+                    if (res.data.mess) {
+                        alert("Refuse thành công")
+                    }
+                })
+            requestUser[index] = {
+                ...requestUser[index],
+                isAccept: false
+            }
+            setRequestUser([...requestUser])
+        } else {
+            alert("đã phê duyệt")
+        }
+    }
+    const handleDeleteRequest = (id) => {
+        if (id) {
+            CallApi(`admin/requests/${id}`, "DELETE", null)
+                .then(res => {
+                    const data = requestUser.filter(item => item.requestId !== id);
+                    setRequestUser([...data])
+                    alert("Delete thành công")
+                    let page;
+                    if (requestUser.length === 1) {
+                        page = filterRequest.page - 1
+                    } else {
+                        page = filterRequest.page
+                    }
+                    setFilterRequest({
+                        ...filterRequest,
+                        limit: 5,
+                        page: page
+                    })
+                })
+        }
+    }
     // Xử lý sự kiện lấy thông tin user
     useEffect(() => {
         const configToken = localStorage.getItem("token")
@@ -48,86 +147,52 @@ function Context(props) {
         return () => {
 
         }
-    }, [token,employee])
+    }, [token, employee])
 
-    // Xử lý phân trang
-    const [filters, setFilters] = useState({
+    // Xử lý phân trang Employee
+    const [filtersEmpoyee, setFiltersEmpoyee] = useState({
         limit: 5,
         page: 0,
         search: ''
     })
-    const handlePageChange = (newPage) => {
-        console.log("newPage", newPage);
-
-        setFilters({
-            ...filters,
+    const handlePageChangeEmpoyee = (newPage) => {
+        setFiltersEmpoyee({
+            ...filtersEmpoyee,
             page: newPage
         })
     }
+    // search employee
     const handleSearch = (value) => {
-        setFilters({
-            ...filters,
+        setFiltersEmpoyee({
+            ...filtersEmpoyee,
             page: 0,
             search: value.search
         })
     }
 
-
-    const [requestsUser, setRequestsUser] = useState([])
-
-    const handleChangeSelect = (value) => {
-        switch (value) {
-            case "1":
-                CallApi("admin/requests", "GET", null)
-                    .then(res => {
-                        console.log("res", res);
-
-                        setRequestsUser([...res.data])
-                    })
-                break
-            case "true":
-                CallApi(`admin/requests?isAccepted=${value}`, "GET", null)
-                    .then(res => {
-                        console.log("res", res);
-                        setRequestsUser([...res.data])
-                    })
-                break
-            case "false":
-                CallApi(`admin/requests?isAccepted=${value}`, "GET", null)
-                    .then(res => {
-                        console.log("res", res);
-                        setRequestsUser([...res.data])
-                    })
-                break
-            default:
-                return value
-        }
-
-    }
-
-    // useEffect(() => {
-    //     CallApi("admin/requests", "GET", null)
-    //         .then(res => {
-    //             setRequestsUser([...res.data])
-    //         })
-    // }, [])
-
     // Xử lý sự kiện getData Employee
     useEffect(() => {
-        const param = queryString.stringify(filters);
+        const param = queryString.stringify(filtersEmpoyee);
         CallApi(`admin/staffs?${param}`, "GET", null)
             .then(res => {
                 // console.log("resdata", res);
                 setEmployee([...res.data]);
             })
-    }, [filters])
+    }, [filtersEmpoyee])
 
     useEffect(() => {
         CallApi(`admin/staffs`, "GET", null)
             .then(res => {
                 setTotalEmployee([...res.data])
             })
-    },[employee])
+    }, [employee])
+
+    useEffect(() => {
+        CallApi(`admin/requests?isAccepted=-1&type=0`, "GET", null)
+            .then(res => {
+                settotalRequest([...res.data])
+            })
+    }, [requestUser])
 
 
     // Xử lý sự kiện active và show Submenu
@@ -176,7 +241,7 @@ function Context(props) {
             vip: data.vip
         }
         if (data.id === "") {
-            // console.log("adđ", newData);
+           
             CallApi("admin/staffs", "POST", {
                 ...newData
             })
@@ -187,15 +252,11 @@ function Context(props) {
                         return
                     }
                     setEmployee([...employee, res.data]);
-                    // handleCloseForm();
-                    const param = queryString.stringify(filters);
+                    const param = queryString.stringify(filtersEmpoyee);
                     CallApi(`admin/staffs?${param}`, "GET", null)
                         .then(res => {
-                            // console.log("resdata", res);
                             setEmployee([...res.data]);
-
                         })
-
                 })
             handleCloseForm();
         }
@@ -228,7 +289,17 @@ function Context(props) {
             .then(res => {
                 const data = employee.filter(item => item.userId !== id);
                 setEmployee([...data])
-
+                let page;
+                if (employee.length === 1) {
+                    page = filtersEmpoyee.page - 1
+                } else {
+                    page = filtersEmpoyee.page
+                }
+                setFiltersEmpoyee({
+                    ...filtersEmpoyee,
+                    limit: 5,
+                    page: page
+                })
             })
     }
     // Xử lý sự kiện Edit Employee
@@ -345,9 +416,13 @@ function Context(props) {
                     ...dayOffRequets
                 })
                     .then(res => {
-                        if (res.data.mess) {
-                            alert("Đã gửi thành công ")
-                        }
+                        setRequestUser([...requestUser, res.data])
+                        alert("Thành công")
+                        const param = queryString.stringify(filterRequest)
+                        CallApi(`admin/requests?${param}`, "GET", null)
+                            .then(res => {
+                                setRequestUser([...res.data])
+                            })                
                     })
 
                 break;
@@ -361,9 +436,14 @@ function Context(props) {
                     ...checkout
                 })
                     .then(res => {
-                        if (res.data.mess) {
-                            alert("Đã gửi thành công ")
-                        }
+                        setRequestUser([...requestUser, res.data])
+                        alert("Đã gửi thành công ")
+                        const param = queryString.stringify(filterRequest)
+                        CallApi(`admin/requests?${param}`, "GET", null)
+                            .then(res => {
+                                setRequestUser([...res.data])
+                            })      
+
                     })
                 break;
             case "3":
@@ -379,9 +459,13 @@ function Context(props) {
                     ...timeEarly_Late
                 })
                     .then(res => {
-                        if (res.data.mess) {
-                            alert("Đã gửi thành công ")
-                        }
+                        setRequestUser([...requestUser, res.data])
+                        alert("Đã gửi thành công ")
+                        const param = queryString.stringify(filterRequest)
+                        CallApi(`admin/requests?${param}`, "GET", null)
+                            .then(res => {
+                                setRequestUser([...res.data])
+                            })      
                     })
                 break;
             case "4":
@@ -397,9 +481,13 @@ function Context(props) {
                     ...onSite
                 })
                     .then(res => {
-                        if (res.data.mess) {
-                            alert("Đã gửi thành công ")
-                        }
+                        setRequestUser([...requestUser, res.data])
+                        alert("Đã gửi thành công ")
+                        const param = queryString.stringify(filterRequest)
+                        CallApi(`admin/requests?${param}`, "GET", null)
+                            .then(res => {
+                                setRequestUser([...res.data])
+                            })      
                     })
                 break;
             default:
@@ -412,9 +500,11 @@ function Context(props) {
         localStorage.removeItem("token")
         localStorage.clear()
         history.push("/")
+        setSubMenu(false)
         setIsLogin(false)
         setSeleced(null)
         handleCloseLogout();
+        setIsShoNavBar(true)
     }
     return (
         <ContextProvider.Provider value={
@@ -431,15 +521,14 @@ function Context(props) {
                 // xử lý menu nav
                 subMenu: subMenu,
                 seleced: seleced,
-                isLogout:isLogout,
-                handleOpenLogout:handleOpenLogout,
+                isLogout: isLogout,
+                handleOpenLogout: handleOpenLogout,
                 handleCloseLogout: handleCloseLogout,
 
                 isShowModal: isShowModal,
                 handleToggleShowModal: handleToggleShowModal,
                 handleTimeKeeping: handleTimeKeeping,
-                requestsUser: requestsUser,
-                handleChangeSelect: handleChangeSelect,
+
 
                 employee: employee,
                 handleAddEmployee: handleAddEmployee,
@@ -452,15 +541,20 @@ function Context(props) {
 
 
                 // handle change page
-                handlePageChange: handlePageChange,
-                filters: filters,
+                handlePageChangeEmpoyee: handlePageChangeEmpoyee,
+                filtersEmpoyee: filtersEmpoyee,
                 handleSearch: handleSearch,
 
                 // Xử lý request
+                requestUser: requestUser,
                 handleUsersRequest: handleUsersRequest,
-                // handleAcceptRequest: handleAcceptRequest,
-                // handleRefuseRequest: handleRefuseRequest,
-                // handleDeleteRequest: handleDeleteRequest
+                handleAcceptRequest: handleAcceptRequest,
+                handleRefuseRequest: handleRefuseRequest,
+                handleDeleteRequest: handleDeleteRequest,
+                handleChangeFilterRequest: handleChangeFilterRequest,
+                totalRequest: totalRequest,
+                filterRequest: filterRequest,
+                handleChangePageRequest: handleChangePageRequest,
             }
         }>
             {props.children}

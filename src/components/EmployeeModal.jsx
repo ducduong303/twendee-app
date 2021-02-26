@@ -56,6 +56,9 @@ function EmployeeModal(props) {
         } else {
             setImageEidt(editTingEmployee.avatar)
         }
+        return () =>{
+
+        }
     }, [editTingEmployee])
     useEffect(() => {
         if (!image) {
@@ -107,6 +110,9 @@ function EmployeeModal(props) {
             })
             clearInput()
         }
+        return () =>{
+            
+        }
 
     }, [editTingEmployee])
     const clearInput = () => {
@@ -140,6 +146,8 @@ function EmployeeModal(props) {
         })
     }
     const handleUpload = (data, e) => {
+       console.log(data);
+       
         setInputs({
             ...inputs,
             email: data.email,

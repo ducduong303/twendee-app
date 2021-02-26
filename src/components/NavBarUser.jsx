@@ -54,7 +54,7 @@ function NavBarUser(props) {
         return result
     }
     return (
-        <div className={classNames("nav-bar", { activeNavBar: isShowNavBar })}>
+        <div className={classNames("nav-bar", { activeNavBar: isShowNavBar },{activeRes: !isShowNavBar})}>
             <div className="nav-bar__container">
                 <div className="nav-bar__head">
                     <div className="nav-bar__head-box">

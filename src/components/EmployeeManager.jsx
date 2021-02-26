@@ -18,7 +18,6 @@ function EmployeeManager(props) {
 
     const handleChangeSearch = (e) => {
         const value = e.target.value;
-
         setSearch(value)
         if (typingTimeoutRef.current) {
             clearTimeout(typingTimeoutRef.current)
